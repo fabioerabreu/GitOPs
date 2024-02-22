@@ -3,7 +3,7 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: pacman
+    app: pacman-svc
     app.kubernetes.io/instance: pacman
   name: pacman
 spec:
