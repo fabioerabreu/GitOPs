@@ -1,2 +1,32 @@
-NAME     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
-pacman   ClusterIP   10.108.224.197   <none>        80/TCP    26h
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2024-02-21T11:59:15Z","labels":{"app":"pacman","app.kubernetes.io/instance":"pacman"},"name":"pacman","namespace":"pacman","resourceVersion":"31377","uid":"60bfcf05-6dec-416d-ae15-0e47adcceee6"},"spec":{"clusterIP":"10.108.224.197","clusterIPs":["10.108.224.197"],"internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","ports":[{"port":80,"protocol":"TCP","targetPort":80}],"selector":{"app":"pacman"},"sessionAffinity":"None","type":"ClusterIP"},"status":{"loadBalancer":{}}}
+  creationTimestamp: "2024-02-22T14:02:23Z"
+  labels:
+    app: pacman
+    app.kubernetes.io/instance: pacman
+  name: pacman
+  namespace: pacman
+  resourceVersion: "65950"
+  uid: c72190a1-5644-47df-9575-43d239a990bc
+spec:
+  clusterIP: 10.108.224.197
+  clusterIPs:
+  - 10.108.224.197
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: pacman
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
