@@ -5,7 +5,7 @@ metadata:
   labels:
     app: pacman-svc
     app.kubernetes.io/instance: pacman
-  name: pacman
+  name: pacman-svc
 spec:
   ports:
   - port: 80
