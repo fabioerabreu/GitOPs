@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "3"
+  creationTimestamp: "2024-02-20T10:55:24Z"
+  generation: 11
+  labels:
+    app: pacman
+  name: pacman
+  namespace: pacman
+  resourceVersion: "52313"
+  uid: 2323da56-4c3a-4fc6-8be3-c60ff242e4ef
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pacman
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: pacman
+    spec:
+      containers:
+      - env:
+        - name: COLOR
+          valueFrom:
+            configMapKeyRef:
+              key: COLOR
+              name: cfgmap
+        image: ghcr.io/fabioerabreu/pacman:2.0
+        imagePullPolicy: IfNotPresent
+        name: pacman
+        resources:
+          requests:
+            cpu: 1m
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2024-02-20T10:55:24Z"
+    lastUpdateTime: "2024-02-21T13:56:01Z"
+    message: ReplicaSet "pacman-77fb79cb64" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2024-02-22T11:01:17Z"
+    lastUpdateTime: "2024-02-22T11:01:17Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 11
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
+
+---
+#Service
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2024-02-21T11:59:15Z"
+  labels:
+    app: pacman
+  name: pacman
+  namespace: pacman
+  resourceVersion: "31377"
+  uid: 60bfcf05-6dec-416d-ae15-0e47adcceee6
+spec:
+  clusterIP: 10.108.224.197
+  clusterIPs:
+  - 10.108.224.197
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: pacman
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+
+---
+#Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  creationTimestamp: "2024-02-21T12:00:04Z"
+  generation: 1
+  name: pacman-ingress
+  namespace: pacman
+  resourceVersion: "51530"
+  uid: 3903d44f-db5a-4c2e-b743-c09babce1a3a
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: pacman.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: pacman
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.49.2
+
+---
+#HPA
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pacman-hpa
+  namespace: pacman
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pacman
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 1
+
