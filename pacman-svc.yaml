@@ -15,22 +15,3 @@ spec:
     app: pacman
 status:
   loadBalancer: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  creationTimestamp: null
-  labels:
-    app: pacman
-    app.kubernetes.io/instance: pacman
-  name: pacman
-  namespace: pacman
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: pacman
-status:
-  loadBalancer: {}
