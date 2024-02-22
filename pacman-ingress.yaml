@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   creationTimestamp: null
   name: pacman-ing
-  namespace: pacman
 spec:
   rules:
   - host: pacman.local

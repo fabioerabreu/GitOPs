@@ -6,7 +6,6 @@ metadata:
     app: pacman
     app.kubernetes.io/instance: pacman
   name: pacman
-  namespace: pacman
 spec:
   ports:
   - port: 80

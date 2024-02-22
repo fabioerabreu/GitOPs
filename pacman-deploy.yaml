@@ -5,7 +5,6 @@ metadata:
   labels:
     app: pacman
   name: pacman
-  namespace: pacman
 spec:
   replicas: 1
   selector:
