@@ -1,0 +1,2 @@
+NAME         REFERENCE           TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+pacman-hpa   Deployment/pacman   0%/1%     1         5         1          24h

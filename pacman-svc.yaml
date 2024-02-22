@@ -1,0 +1,2 @@
+NAME     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+pacman   ClusterIP   10.108.224.197   <none>        80/TCP    26h
