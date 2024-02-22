@@ -6,14 +6,12 @@ metadata:
     app: pacman
     app.kubernetes.io/instance: pacman
   name: pacman
-  namespace: pacman-argo
 spec:
   ports:
-  - port: 32000
+  - port: 80
     protocol: TCP
-    targetPort: 32000
+    targetPort: 80
   selector:
     app: pacman
-  type: LoadBalancer
 status:
   loadBalancer: {}
