@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   creationTimestamp: null
   name: pacman-ing
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - host: pacman.local
@@ -12,7 +15,7 @@ spec:
           service:
             name: pacman
             port:
-              number: 8080
+              number: 80
         path: /
         pathType: Prefix
 status:
